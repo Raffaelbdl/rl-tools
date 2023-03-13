@@ -1,5 +1,11 @@
-import gymnasium as gym
-import numpy as np
+try:
+    import gymnasium as gym
+    import numpy as np
+except ImportError:
+    print("The following packages are necessary to use the training loops")
+    print("- gymnasium")
+    print("- numpy")
+
 
 from rl_tools.agent import Agent
 from rl_tools.saver import Saver

@@ -1,11 +1,18 @@
 from typing import Callable
 from functools import partial
 
-import chex
-import haiku as hk
-import jax
-import jax.random as jrd
-import optax
+try:
+    import chex
+    import haiku as hk
+    import jax
+    import jax.random as jrd
+    import optax
+except ImportError:
+    print("The following packages are necessary to use the updates functions")
+    print("- jax (install as explained on the GitHub repository)")
+    print("- chex")
+    print("- haiku")
+    print("- optax")
 
 Grads = chex.ArrayTree
 
