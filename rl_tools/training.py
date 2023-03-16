@@ -91,7 +91,7 @@ def train_envpool(config: dict, envs: gym.Env, agent: Agent, use_wandb: bool = F
                 config["n_samples_and_updates"] * config["n_minibatches"]
             )
 
-        next_observations = observations
+        observations = next_observations
 
         for i, done in enumerate(dones):
             if done:
