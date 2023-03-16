@@ -54,20 +54,8 @@ class SimpleOnPolicyBuffer(Buffer):
         return len(self.buffer["rewards"])
 
     @staticmethod
-    def get_batch_from_data(data, idx):
-        keys = [
-            "observations",
-            "actions",
-            "log_probs",
-            "rewards",
-            "dones",
-            "next_observations",
-            "advantages",
-            "returns",
-            "values",
-        ]
-
+    def get_batch_from_data(data: dict, idx):
         batch = {}
-        for key in keys:
+        for key in data.keys():
             batch[key] = data[key][idx]
         return batch
