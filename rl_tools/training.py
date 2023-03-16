@@ -41,7 +41,7 @@ def train_single_env(config: dict, env: gym.Env, agent: Agent):
                 config["n_samples_and_updates"] * config["n_minibatches"]
             )
 
-        next_observation = observation
+        observation = next_observation
 
         if done or trunc:
             observation, _ = env.reset()
