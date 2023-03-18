@@ -12,6 +12,10 @@ class Agent:
         raise NotImplementedError("get_action method must be implemented")
 
     @abstractmethod
+    def get_value(self, observations):
+        raise NotImplementedError("get_value method must be implemented")
+
+    @abstractmethod
     def improve(self, logs: dict):
         raise NotImplementedError("improve method must be implemented")
 
