@@ -66,3 +66,10 @@ class SimpleOnPolicyBuffer(Buffer):
         for key in data.keys():
             batch[key] = data[key][idx]
         return batch
+
+    @staticmethod
+    def get_time_batch_from_data(data: dict, idx):
+        batch = {}
+        for key in data.keys():
+            batch[key] = data[key][:, idx]
+        return batch
