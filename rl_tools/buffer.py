@@ -73,3 +73,10 @@ class SimpleOnPolicyBuffer(Buffer):
         for key in data.keys():
             batch[key] = data[key][:, idx]
         return batch
+
+    @staticmethod
+    def get_batch_from_data_list(data: list, idx):
+        batch = []
+        for d in data:
+            batch.append(SimpleOnPolicyBuffer.get_batch_from_data(d, idx))
+        return batch
