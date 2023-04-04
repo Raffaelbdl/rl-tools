@@ -3,9 +3,9 @@ import pickle
 
 
 class Saver:
-    def __init__(self, name: str) -> None:
+    def __init__(self, name: str, override_save: bool = False) -> None:
         self.path = os.path.join("results", name)
-        os.makedirs(self.path)
+        os.makedirs(self.path, exist_ok=override_save)
 
     def save(self, name: str, params):
         with open(os.path.join(self.path, name), "wb") as f:
