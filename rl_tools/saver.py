@@ -17,3 +17,20 @@ class Saver:
             params = pickle.load(f)
         f.close()
         return params
+
+
+class Pickler(Saver):
+    def __init__(self, name: str, override_save: bool = False) -> None:
+        self.path = os.path.join("results", name)
+        os.makedirs(self.path, exist_ok=override_save)
+
+        self.params = None
+
+    def update(self, to_pickle):
+        self.params = to_pickle
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *args):
+        self.save("save_at_last", self.params)
