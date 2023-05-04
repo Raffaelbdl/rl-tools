@@ -5,7 +5,7 @@ with open("requirements.txt", "r") as f:
 
 setup(
     # Needed to silence warnings (and to be a worthwhile package)
-    name="rltools",
+    name="rl_tools",
     url="https://github.com/Raffaelbdl/rl-tools",
     author="Raffael Bolla Di Lorenzo",
     author_email="raffaelbdl@gmail.com",
