@@ -1,2 +1,2 @@
 # rl-tools
-A few tools for Reinforcement Learning
+Collection of tools I use for my Reinforcement Learning projects
