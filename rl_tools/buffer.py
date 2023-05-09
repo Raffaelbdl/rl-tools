@@ -92,7 +92,6 @@ class SimpleOnPolicyBuffer(Buffer):
         return batch
 
 
-
 class ReplayBuffer:
     """Buffer for off-policy algorithms"""
 
@@ -133,7 +132,7 @@ class ReplayBuffer:
         action = action.reshape(self.action_shape)
         reward = reward
         done = done
-        next_obs = obs.reshape(self.obs_shape)
+        next_obs = next_obs.reshape(self.obs_shape)
 
         self.observations[self.pos] = obs.copy()
         self.actions[self.pos] = action.copy()
