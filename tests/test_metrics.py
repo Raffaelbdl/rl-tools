@@ -1,4 +1,4 @@
-from rl_tools.metrics import Metrics
+from rltools.metrics import Metrics
 
 
 def test_metrics():

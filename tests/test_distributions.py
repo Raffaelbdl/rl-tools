@@ -2,7 +2,7 @@ import distrax as dx
 import jax.random as jrd
 import numpy as np
 
-from rl_tools.distributions import normal_and_tanh_sample_and_log_prob
+from rltools.distributions import normal_and_tanh_sample_and_log_prob
 
 
 def test_normal_and_tanh_sample_and_log_prob():
