@@ -1,6 +1,6 @@
 from abc import abstractmethod, abstractproperty
 
-from rl_tools.buffer import Buffer
+from rltools.buffer import Buffer
 
 
 class Agent:

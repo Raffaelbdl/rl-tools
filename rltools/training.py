@@ -7,8 +7,8 @@ except ImportError:
     print("- numpy")
 
 
-from rl_tools.agent import Agent
-from rl_tools.saver import Saver
+from rltools.agent import Agent
+from rltools.saver import Saver
 
 
 def train_single_env(config: dict, env: gym.Env, agent: Agent):
