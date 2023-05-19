@@ -1,24 +1,20 @@
-from abc import abstractmethod, abstractproperty
+from abc import abstractmethod
 
-from rltools.buffer import Buffer
+import jax.random as jrd
 
 
 class Agent:
     def __init__(self) -> None:
-        self.buffer: Buffer = None
+        self.key: jrd.PRNGKeyArray = None
 
     @abstractmethod
     def get_action(self, observations):
         raise NotImplementedError("get_action method must be implemented")
 
     @abstractmethod
-    def get_value(self, observations):
-        raise NotImplementedError("get_value method must be implemented")
-
-    @abstractmethod
     def improve(self, logs: dict):
         raise NotImplementedError("improve method must be implemented")
 
-    @abstractproperty
-    def improve_condition(self):
-        raise NotImplementedError("improve_condition property must be implemented")
+    def _next_rng_key(self):
+        self.key, _key = jrd.split(self.key)
+        return _key
