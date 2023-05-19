@@ -4,8 +4,8 @@ import jax.random as jrd
 
 
 class Agent:
-    def __init__(self) -> None:
-        self.key: jrd.PRNGKeyArray = None
+    def __init__(self, key: jrd.PRNGKeyArray) -> None:
+        self.key = key
 
     @abstractmethod
     def get_action(self, observations):
