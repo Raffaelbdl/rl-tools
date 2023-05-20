@@ -123,7 +123,7 @@ def get_time_batch(buffer_dict: dict, inds: np.ndarray) -> dict:
     return batch
 
 
-def get_batch_from_list(list_buffer_dict: list(dict), inds: np.ndarray) -> list(dict):
+def get_batch_from_list(list_buffer_dict: list[dict], inds: np.ndarray) -> list[dict]:
     batch = []
     for b in list_buffer_dict:
         batch.append(get_batch(b, inds))
@@ -131,8 +131,8 @@ def get_batch_from_list(list_buffer_dict: list(dict), inds: np.ndarray) -> list(
 
 
 def get_time_batch_from_list(
-    list_buffer_dict: list(dict), inds: np.ndarray
-) -> list(dict):
+    list_buffer_dict: list[dict], inds: np.ndarray
+) -> list[dict]:
     batch = []
     for b in list_buffer_dict:
         batch.append(get_time_batch(b, inds))
