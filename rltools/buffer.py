@@ -107,3 +107,10 @@ class OnPolicyBuffer:
             "values": np.array(self.values),
             "next_values": np.array(self.next_values),
         }
+
+
+def get_batch(buffer_dict: dict, inds: np.ndarray):
+    batch = {}
+    for k, v in buffer_dict.items():
+        batch[k] = v[inds]
+    return batch
