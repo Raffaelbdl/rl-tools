@@ -109,8 +109,31 @@ class OnPolicyBuffer:
         }
 
 
-def get_batch(buffer_dict: dict, inds: np.ndarray):
+def get_batch(buffer_dict: dict, inds: np.ndarray) -> dict:
     batch = {}
     for k, v in buffer_dict.items():
         batch[k] = v[inds]
+    return batch
+
+
+def get_time_batch(buffer_dict: dict, inds: np.ndarray) -> dict:
+    batch = {}
+    for k, v in buffer_dict.items():
+        batch[k] = v[:, inds]
+    return batch
+
+
+def get_batch_from_list(list_buffer_dict: list(dict), inds: np.ndarray) -> list(dict):
+    batch = []
+    for b in list_buffer_dict:
+        batch.append(get_batch(b, inds))
+    return batch
+
+
+def get_time_batch_from_list(
+    list_buffer_dict: list(dict), inds: np.ndarray
+) -> list(dict):
+    batch = []
+    for b in list_buffer_dict:
+        batch.append(get_time_batch(b, inds))
     return batch
