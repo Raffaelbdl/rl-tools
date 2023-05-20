@@ -83,18 +83,14 @@ class OnPolicyBuffer:
         self.rewards = []
         self.dones = []
         self.next_observations = []
-        self.values = []
-        self.next_values = []
 
-    def add(self, obs, action, log_prob, rwd, done, next_obs, value, next_value):
+    def add(self, obs, action, log_prob, rwd, done, next_obs):
         self.observations.append(obs)
         self.actions.append(action)
         self.log_probs.append(log_prob)
         self.rewards.append(rwd)
         self.dones.append(done)
         self.next_observations.append(next_obs)
-        self.values.append(value)
-        self.next_values.append(next_value)
 
     def sample(self):
         return {
@@ -104,8 +100,6 @@ class OnPolicyBuffer:
             "rewards": np.array(self.rewards),
             "dones": np.array(self.dones),
             "next_observations": np.array(self.next_observations),
-            "values": np.array(self.values),
-            "next_values": np.array(self.next_values),
         }
 
 
