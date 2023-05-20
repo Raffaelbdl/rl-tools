@@ -1,95 +1,5 @@
-from abc import abstractmethod
-from typing import Dict, List
-
 from gymnasium.spaces import Space
 import numpy as np
-
-
-class Buffer:
-    def __init__(self, keys: List[str]) -> None:
-        self.keys = keys
-        self.buffer = None
-
-    @abstractmethod
-    def reset(self):
-        raise NotImplementedError("reset method must be implemented")
-
-    @abstractmethod
-    def add(self, *args):
-        raise NotImplementedError("add method must be implemented")
-
-    @abstractmethod
-    def __len__(self):
-        raise NotImplementedError("__len__ method must be implemented")
-
-
-class SimpleOnPolicyBuffer(Buffer):
-    def __init__(self) -> None:
-        keys = [
-            "observations",
-            "actions",
-            "log_probs",
-            "rewards",
-            "dones",
-            "next_observations",
-            "values",
-            "next_values",
-        ]
-        super().__init__(keys)
-
-    def reset(self):
-        self.buffer = {key: [] for key in self.keys}
-
-    def add(
-        self,
-        observation,
-        action,
-        log_prob,
-        reward,
-        done,
-        next_observation,
-        values=None,
-        next_values=None,
-    ):
-        self.buffer["observations"].append(observation)
-        self.buffer["actions"].append(action)
-        self.buffer["log_probs"].append(log_prob)
-        self.buffer["rewards"].append(reward)
-        self.buffer["dones"].append(done)
-        self.buffer["next_observations"].append(next_observation)
-        self.buffer["values"].append(values)
-        self.buffer["next_values"].append(next_values)
-
-    def __len__(self):
-        return len(self.buffer["rewards"])
-
-    @staticmethod
-    def get_batch_from_data(data: dict, idx):
-        batch = {}
-        for key in data.keys():
-            batch[key] = data[key][idx]
-        return batch
-
-    @staticmethod
-    def get_time_batch_from_data(data: dict, idx):
-        batch = {}
-        for key in data.keys():
-            batch[key] = data[key][:, idx]
-        return batch
-
-    @staticmethod
-    def get_batch_from_data_list(data: list, idx):
-        batch = []
-        for d in data:
-            batch.append(SimpleOnPolicyBuffer.get_batch_from_data(d, idx))
-        return batch
-
-    @staticmethod
-    def get_time_batch_from_data_list(data: list, idx):
-        batch = []
-        for d in data:
-            batch.append(SimpleOnPolicyBuffer.get_time_batch_from_data(d, idx))
-        return batch
 
 
 class ReplayBuffer:
@@ -153,11 +63,47 @@ class ReplayBuffer:
             inds = self.rng.integers(0, self.pos, size=batch_size)
         return self._get_samples(inds)
 
-    def _get_samples(self, inds: np.ndarray) -> Dict[str, np.ndarray]:
+    def _get_samples(self, inds: np.ndarray) -> dict[str, np.ndarray]:
         return {
             "observations": self.observations[inds],
             "actions": self.actions[inds],
             "rewards": self.rewards[inds],
             "dones": self.dones[inds],
             "next_observations": self.observations[(inds + 1) % self.buffer_size],
+        }
+
+
+class OnPolicyBuffer:
+    """Buffer for off-policy algorithms"""
+
+    def __init__(self) -> None:
+        self.observations = []
+        self.actions = []
+        self.log_probs = []
+        self.rewards = []
+        self.dones = []
+        self.next_observations = []
+        self.values = []
+        self.next_values = []
+
+    def add(self, obs, action, log_prob, rwd, done, next_obs, value, next_value):
+        self.observations.append(obs)
+        self.actions.append(action)
+        self.log_probs.append(log_prob)
+        self.rewards.append(rwd)
+        self.dones.append(done)
+        self.next_observations.append(next_obs)
+        self.values.append(value)
+        self.next_values.append(next_value)
+
+    def sample(self):
+        return {
+            "observations": np.array(self.observations),
+            "actions": np.array(self.actions),
+            "log_probs": np.array(self.log_probs),
+            "rewards": np.array(self.rewards),
+            "dones": np.array(self.dones),
+            "next_observations": np.array(self.next_observations),
+            "values": np.array(self.values),
+            "next_values": np.array(self.next_values),
         }
