@@ -41,3 +41,7 @@ def update(
     output, grads = jax.value_and_grad(loss_fn, has_aux=True)(params, key, batch)
     params, opt_state = apply_updates(optimizer, params, opt_state, grads)
     return params, opt_state, output
+
+
+def avg(a):
+    return sum(a) / len(a)
